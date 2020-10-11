@@ -7,11 +7,17 @@ const cors = require('cors');
 mongoose.set('useCreateIndex', true);
 
 const playerRoute = require('./routes/player');
+const roundRoute = require('./routes/round');
+const choiceRoute = require('./routes/choice');
+const roomRoute = require('./routes/room');
 
 app.use(cors());
 app.use(bodyParser.json());
 
 app.use('/player', playerRoute);
+app.use('/round', roundRoute);
+app.use('/choice', choiceRoute);
+app.use('/room', roomRoute);
 
 app.get('/', (req, res) => {
     res.send('We are on home');

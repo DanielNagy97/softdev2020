@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 
 const PlayerSchema = mongoose.Schema({
-    //TODO: Játékos validálás
     name: {
         type: String,
         required: true,
@@ -14,6 +13,11 @@ const PlayerSchema = mongoose.Schema({
     score: {
         type: Number,
         default: 0
+    },
+    roomID: {
+        type: Number,
+        ref:'Room',
+        required: true
     }
 });
 

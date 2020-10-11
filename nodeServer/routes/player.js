@@ -15,7 +15,8 @@ router.post('/', async (req, res) => {
         player = new Player({
             name: req.body.name,
             avatar: req.body.avatar,
-            score: 0
+            score: 0,
+            roomID: req.body.roomID
         });
         
         try{
@@ -25,7 +26,6 @@ router.post('/', async (req, res) => {
             res.json({message: err});
         }
     }
-   
 });
 
 //Get players list
@@ -39,35 +39,23 @@ router.get('/', async (req, res) => {
 });
 
 //Get player by ID
-router.get('/:playerId', async (req, res) =>{
+router.get('/:playerID', async (req, res) =>{
     try{
-        const player = await Player.findById(req.params.playerId);
+        const player = await Player.findById(req.params.playerID);
         res.json(player);
     }catch(err){
         res.json({message: err});
     }
 });
 
-//Get players with scores
-//TODO: Get this working!
-router.get('/scores', async (req, res) => {
-    try{
-        let players = await Player.find({},'name score');
-        res.json(players);
-    }catch(err){
-        res.json({message: err});
-    }
-});
 
 //Update name and avatar
-router.patch('/:playerId', async (req, res) =>{
-    const originalPlayer = await Player.findById(req.params.playerId);
+router.patch('/:playerID', async (req, res) =>{
     try{
-        const updatedPlayer = await Player.updateOne({_id: req.params.playerId},
+        const updatedPlayer = await Player.updateOne({_id: req.params.playerID},
             {$set: {
                 name: req.body.name,
                 avatar: req.body.avatar,
-                score: originalPlayer.score
             }
         });
         res.json(updatedPlayer);
@@ -77,9 +65,9 @@ router.patch('/:playerId', async (req, res) =>{
 });
 
 //Delete player
-router.delete('/:playerId', async (req, res) =>{
+router.delete('/:playerID', async (req, res) =>{
     try{
-        const removedPlayer = await Player.deleteOne({_id: req.params.playerId});
+        const removedPlayer = await Player.deleteOne({_id: req.params.playerID});
         res.json(removedPlayer);
     }catch(err){
         res.json({message: err});
