@@ -5,10 +5,22 @@ const Round = require('../models/Round');
 const Choice = require('../models/Choice');
 
 //Post a new round
+
+//PROBLEM: Dices are lost. The Schema can be wrong
+//TODO: Get this working!
 router.post('/', async (req, res) => {
+
+    //TODO: Check if player in the room exists!!!
+
     const round = new Round({
         master: req.body.master,
-        roomID: req.body.roomID
+        roomID: req.body.roomID,
+        dices : {
+            shape : undefined,
+            color : undefined,
+            texture : undefined,
+            direction : undefined
+        }
     });
         
     try{
@@ -42,10 +54,24 @@ router.get('/:roundID', async (req, res) =>{
 });
 
 //Get choices by roundID
-router.get('/choices/:roundID', async (req, res) =>{
+router.get('/:roundID/choices', async (req, res) =>{
     try{
         const choices = await Choice.find({roundID: req.params.roundID});
         res.json(choices);
+    }catch(err){
+        res.json({message: err});
+    }
+});
+
+//Update dices
+router.patch('/:roundID/roll', async (req, res) =>{
+    try{
+        const updatedRound = await Round.updateOne({master: req.body.master},
+            {$set: {
+                dices : req.body.dices
+            }
+        });
+        res.json(updatedRound);
     }catch(err){
         res.json({message: err});
     }

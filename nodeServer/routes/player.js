@@ -74,12 +74,4 @@ router.delete('/:playerID', async (req, res) =>{
     }
 });
 
-/*
-Populate
-        const album = await Album.find({postedBy: req.params.userId})
-        .populate('artist', ['name', 'country'])
-        .populate('postedBy', ['name', 'email']);
-
-*/
-
 module.exports = router;

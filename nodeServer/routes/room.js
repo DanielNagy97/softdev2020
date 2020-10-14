@@ -10,12 +10,16 @@ const Player = require('../models/Player');
 router.post('/', async (req, res) => {
     let roomID;
     let room = false;
-    while(!room){
+
+    //generating room number
+    while(room != null){
         roomID = Math.floor(Math.random() * (99999 - 10000) ) + 10000;
-        room = await Room.findOne({ roomID: roomID });
+        room = await Room.findOne({ _id: roomID });
     }
     room = new Room({
-        roomID: roomID
+        _id: roomID,
+        //generating seed for room
+        boardSeed: Math.floor(Math.random() * 10001) + 1
     });
         
     try{
@@ -57,15 +61,6 @@ router.get('/:roomID/rounds', async (req, res) =>{
 });
 
 //Get round with choices by roundID
-router.get('/:roomID/rounds/:roundID', async (req, res) =>{
-    try{
-        let round = await Round.findById(req.params.roundID)
-        .populate('master', ['name', 'score']);
-        round.choices = await Choice.find({roundID: req.params.roundID});
-        res.json(choices);
-    }catch(err){
-        res.json({message: err});
-    }
-});
+
 
 module.exports = router;

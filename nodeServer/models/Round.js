@@ -10,6 +10,28 @@ const RoundSchema = mongoose.Schema({
         type: Number,
         ref:'Room',
         required: true
+    },
+    dices: {
+        shape: {
+            type: String,
+            enum: ['Gost', 'Snail'],
+            default: undefined
+        },
+        color: {
+            type: String,
+            enum: ['Blue', 'Orange'],
+            default: undefined
+        },
+        texture: {
+            type: String,
+            enum: ['Dotted', 'Striped'],
+            default: undefined
+        },
+        direction: {
+            type: String,
+            enum: ['Left', 'Right'],
+            default: undefined
+        }
     }
 });
 
