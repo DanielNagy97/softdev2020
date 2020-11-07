@@ -1,0 +1,134 @@
+[
+    {   
+        "type": "Alien",
+        "shape": "Gost",
+        "texture": "Dotted",
+        "color": "Orange"
+    },
+    {   
+        "type": "Alien",
+        "shape": "Gost",
+        "texture": "Dotted",
+        "color": "Orange"
+    },
+    {   
+        "type": "Alien",
+        "shape": "Gost",
+        "texture": "Dotted",
+        "color": "Blue"
+    },
+    {   
+        "type": "Alien",
+        "shape": "Gost",
+        "texture": "Dotted",
+        "color": "Blue"
+    },
+    {   
+        "type": "Alien",
+        "shape": "Gost",
+        "texture": "Striped",
+        "color": "Orange"
+    },
+    {   
+        "type": "Alien",
+        "shape": "Gost",
+        "texture": "Striped",
+        "color": "Orange"
+    },
+    {   
+        "type": "Alien",
+        "shape": "Gost",
+        "texture": "Striped",
+        "color": "Blue"
+    },
+    {   
+        "type": "Alien",
+        "shape": "Gost",
+        "texture": "Striped",
+        "color": "Blue"
+    },
+    {   
+        "type": "Alien",
+        "shape": "Snail",
+        "texture": "Dotted",
+        "color": "Orange"
+    },
+    {   
+        "type": "Alien",
+        "shape": "Snail",
+        "texture": "Dotted",
+        "color": "Orange"
+    },
+    {   
+        "type": "Alien",
+        "shape": "Snail",
+        "texture": "Dotted",
+        "color": "Blue"
+    },
+    {   
+        "type": "Alien",
+        "shape": "Snail",
+        "texture": "Dotted",
+        "color": "Blue"
+    },
+    {   
+        "type": "Alien",
+        "shape": "Snail",
+        "texture": "Striped",
+        "color": "Orange"
+    },
+    {   
+        "type": "Alien",
+        "shape": "Snail",
+        "texture": "Striped",
+        "color": "Orange"
+    },
+    {   
+        "type": "Alien",
+        "shape": "Snail",
+        "texture": "Striped",
+        "color": "Blue"
+    },
+    {   
+        "type": "Alien",
+        "shape": "Snail",
+        "texture": "Striped",
+        "color": "Blue"
+    },
+    {   
+        "type": "Change",
+        "power": "shape"
+    },
+    {   
+        "type": "Change",
+        "power": "color"
+    },
+    {   
+        "type": "Change",
+        "power": "texture"
+    },
+    {   
+        "type": "Vent",
+        "jump-to": null
+    },
+    {   
+        "type": "Vent",
+        "jump-to": null
+    },
+    {   
+        "type": "Vent",
+        "jump-to": null
+    },
+    {   
+        "type": "Generator",
+        "color": "Red"
+    },
+    {   
+        "type": "Generator",
+        "color": "Blue"
+    },
+    {   
+        "type": "Generator",
+        "color": "Yellow"
+    }
+]
