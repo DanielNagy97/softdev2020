@@ -25,14 +25,17 @@ module.exports = function roll(response){
                         "0": "Blue",
                         "1": "Orange"
                     }[Math.round(Math.random())];
-    game.dices.generator = {
-                            "0": "Red,White",
-                            "1": "Red,Black",
-                            "2": "Blue,White",
-                            "3": "Blue,Black",
-                            "4": "Yellow,White",
-                            "5": "Yellow,Black"
-                        }[Math.floor(Math.random() * 6)];
+    game.dices.generator = {};
+    game.dices.generator.color = {
+                            "0": "Red",
+                            "1": "Blue",
+                            "2": "Yellow"
+                        }[Math.floor(Math.random() * 3)];
+    game.dices.generator.way = {
+                            "0": "White",
+                            "1": "Black",
+                        }[Math.round(Math.random())];
+
 
     const payLoad = {
         "method": "roll",

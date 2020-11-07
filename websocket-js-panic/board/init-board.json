@@ -23,13 +23,13 @@
         "texture": "Dotted",
         "color": "Blue"
     },
-    {   
+    {
         "type": "Alien",
         "shape": "Gost",
         "texture": "Striped",
         "color": "Orange"
     },
-    {   
+    {
         "type": "Alien",
         "shape": "Gost",
         "texture": "Striped",
@@ -109,15 +109,15 @@
     },
     {   
         "type": "Vent",
-        "jump-to": null
+        "jump_to": null
     },
     {   
         "type": "Vent",
-        "jump-to": null
+        "jump_to": null
     },
     {   
         "type": "Vent",
-        "jump-to": null
+        "jump_to": null
     },
     {   
         "type": "Generator",

@@ -83,7 +83,7 @@ function findRoundWinner(game){
     }
 }
 
-//For sorting in descending order
+//For sorting in descending order by token number
 function compare(a, b) {
     if (a.tokens < b.tokens){
       return 1;
