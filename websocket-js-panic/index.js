@@ -12,10 +12,10 @@ const choose = require('./requests/choose');
 
 app.use(cors());
 app.get("/", (req, res) => res.sendFile(__dirname+"/index.html"));
-app.listen(3000, () => console.log("Listening on port 3000"));
+app.listen(3000, () => console.log("Listening Express on port 3000"));
 
 const httpServer = http.createServer();
-httpServer.listen(9000, () => console.log("Listening on 9000"));
+httpServer.listen(9000, () => console.log("Listening Websocket on port 9000"));
 const wsServer = new websocketServer({
     "httpServer" : httpServer
 });

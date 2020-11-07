@@ -38,19 +38,16 @@ module.exports = function choose(response){
 
     if (count == game.players.length){
         //console.log("All players have chosen");
-        findWinner(game);
+        findRoundWinner(game);
     }
 }
 
-function findWinner(game){
+function findRoundWinner(game){
     //TODO: find a winner
 
     //Till the find function is not ready, the winner is specified randomly
     const winner = game.players[Math.floor(Math.random() * game.players.length)];
-
-    //Updating the game for the next round
     winner.tokens++;
-    game.master = winner.playerId;
 
     const payLoad = {
         "method": "winner",
@@ -60,7 +57,39 @@ function findWinner(game){
         players[c.playerId].connection.send(JSON.stringify(payLoad));
     });
 
-    game.players.forEach(c => {
-        delete c.choice;
-    });
+
+    if (game.round === game.noRounds){
+        const payLoad = {
+            "method": "result",
+            "result": game.players.sort(compare)
+        };
+        game.players.forEach(c => {
+            players[c.playerId].connection.send(JSON.stringify(payLoad));
+        });
+    }
+    else {
+        //Updating the game for the next round
+        game.master = winner.playerId;
+        game.round++;
+        game.players.forEach(c => {
+            delete c.choice;
+        });
+        game.dices = {
+            "shape": null,
+            "texture": null,
+            "color": null,
+            "generator": null
+        };
+    }
+}
+
+//For sorting in descending order
+function compare(a, b) {
+    if (a.tokens < b.tokens){
+      return 1;
+    }
+    if (a.tokens > b.tokens){
+      return -1;
+    }
+    return 0;
 }

@@ -45,7 +45,8 @@
         btnCreate.addEventListener("click", e =>{
             const payLoad = {
                 "method": "create",
-                "playerId": playerId
+                "playerId": playerId,
+                "noRounds": 5
             }
 
             ws.send(JSON.stringify(payLoad));
@@ -94,32 +95,43 @@
                 const game = response.game;
                 gameId = game.id;
                 document.getElementById("inptGameId").value = gameId;
+                console.log("Game created");
                 console.log(game);
             }
 
             else if (response.method === "join"){
                 players = response.players;
-                console.log(players)
+                console.log("Players:");
+                console.log(players);
             }
 
             else if (response.method === "start"){
                 const game = response.game;
-                console.log(game)
+                console.log("The game state");
+                console.log(game);
             }
 
             else if (response.method === "roll"){
                 const dices = response.dices;
-                console.log(dices)
+                console.log("The dices:");
+                console.log(dices);
             }
 
             else if (response.method === "choose"){
                 const playerInfo = response.playerInfo;
-                console.log(playerInfo)
+                console.log("A player choosed a card:");
+                console.log(playerInfo);
             }
 
             else if (response.method === "winner"){
                 const winner = response.winner;
+                console.log("The winner of the round:");
                 console.log(winner)
+            }
+            else if (response.method === "result"){
+                const gameResults = response.result;
+                console.log("The result of the game (players by descending token orders):");
+                console.log(gameResults);
             }
         };
     </script>

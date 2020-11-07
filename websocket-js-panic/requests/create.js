@@ -21,7 +21,7 @@ module.exports = function create(response){
             "generator": null
         },
         "round": 1,
-        "winner": null
+        "noRounds": response.noRounds
     };
     
     const payLoad = {
