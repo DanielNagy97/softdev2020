@@ -11,11 +11,11 @@ const roll = require('./requests/roll');
 const choose = require('./requests/choose');
 
 app.use(cors());
-app.get("/", (req, res) => res.sendFile(__dirname+"/index.html"))
-app.listen(9091, () => console.log("Listening on port 9091"));
+app.get("/", (req, res) => res.sendFile(__dirname+"/index.html"));
+app.listen(3000, () => console.log("Listening on port 3000"));
 
 const httpServer = http.createServer();
-httpServer.listen(9090, () => console.log("Listening on 9090"));
+httpServer.listen(9000, () => console.log("Listening on 9000"));
 const wsServer = new websocketServer({
     "httpServer" : httpServer
 });
@@ -60,6 +60,6 @@ wsServer.on("request", request => {
             choose(response);
         }
     });
-    //Creates playerID
+    //Creates new playerID for connection
     connect(connection);
 });

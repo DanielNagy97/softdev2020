@@ -7,7 +7,7 @@ const guid = require('../methods/guid');
 module.exports = function create(response){
     const playerId = response.playerId;
     const gameId = guid();
-    const boardSeed =  Math.floor(Math.random() * 10001) + 1
+    const boardSeed =  Math.floor(Math.random() * 10001) + 1;
     
     games[gameId] = {
         "id": gameId,

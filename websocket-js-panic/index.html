@@ -19,7 +19,7 @@
         //TODO: store the Id-s in cookies
         let playerId = null;
         let gameId = null;
-        let ws = new WebSocket("ws://"+window.location.hostname+":9090");
+        let ws = new WebSocket("ws://"+window.location.hostname+":9000");
         
         const btnCreate = document.getElementById("btnCreate");
         const inptGameId = document.getElementById("inptGameId");
@@ -90,31 +90,36 @@
                 console.log("player id set: " + playerId);
             }
 
-            if (response.method === "create"){
+            else if (response.method === "create"){
                 const game = response.game;
                 gameId = game.id;
                 document.getElementById("inptGameId").value = gameId;
                 console.log(game);
             }
 
-            if (response.method === "join"){
+            else if (response.method === "join"){
                 players = response.players;
                 console.log(players)
             }
 
-            if (response.method === "start"){
+            else if (response.method === "start"){
                 const game = response.game;
                 console.log(game)
             }
 
-            if (response.method === "roll"){
+            else if (response.method === "roll"){
                 const dices = response.dices;
                 console.log(dices)
             }
 
-            if (response.method === "choose"){
+            else if (response.method === "choose"){
                 const playerInfo = response.playerInfo;
                 console.log(playerInfo)
+            }
+
+            else if (response.method === "winner"){
+                const winner = response.winner;
+                console.log(winner)
             }
         };
     </script>

@@ -22,7 +22,7 @@ module.exports = function join(response){
     const payLoad = {
         "method": "join",
         "players": game.players
-    }
+    };
 
     //broadcast player infos to all players
     //(waiting room)
