@@ -2,6 +2,11 @@ const hashmaps = require('../hashmaps/hashmaps');
 const games = hashmaps.games;
 const players = hashmaps.players;
 
+//for debugging
+const searchCard = require('../methods/searchCard');
+const shuffleArray = require('../methods/shuffleArray');
+const init_board = require('../board/init_board.json');
+
 module.exports = function roll(response){
     const playerId = response.playerId;
     const gameId = response.gameId;
@@ -41,6 +46,15 @@ module.exports = function roll(response){
         "method": "roll",
         "dices": game.dices
     };
+
+    //For debugging --------------------
+    let board = [...init_board];
+    shuffleArray(board, game.boardSeed);
+    var cardIndex = searchCard(board, game.dices);
+    //console.log(game.dices);
+    console.log(cardIndex);
+    //For debugging --------------------
+
 
     game.players.forEach(c => {
         players[c.playerId].connection.send(JSON.stringify(payLoad));
