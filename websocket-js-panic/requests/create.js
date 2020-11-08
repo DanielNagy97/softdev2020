@@ -26,7 +26,7 @@ module.exports = function create(response){
     
     const payLoad = {
         "method": "create",
-        "game": games[gameId]
+        "gameId": gameId
     };
     
     const connection = players[playerId].connection;

@@ -103,11 +103,10 @@
             }
 
             else if (response.method === "create"){
-                const game = response.game;
-                gameId = game.id;
+                gameId = response.gameId;
                 document.getElementById("inptGameId").value = gameId;
                 console.log("Game created");
-                console.log(game);
+                console.log(gameId);
             }
 
             else if (response.method === "join"){
