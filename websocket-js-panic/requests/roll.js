@@ -13,9 +13,19 @@ module.exports = function roll(response){
 
     const game = games[gameId];
 
+    if(!game){
+        //If the game does not exists do nothing...
+        //TODO: Send something back for error showing in frontend!
+        return;
+    }
+    if(game.players.length == 0){
+        //If the game does not have any players do nothing...
+        //TODO: Send something back for error showing in frontend!
+        return;
+    }
     if(game.master !== playerId){
-        //invaild roll, it is not the master
-        //TODO: send something back
+        //invaild roll, the player is not the master
+        //TODO: Send something back for error showing in frontend!
         return;
     }
     game.dices.shape = {
@@ -48,15 +58,15 @@ module.exports = function roll(response){
     };
 
     //For debugging --------------------
+    //For seeing the result before the choosing
     let board = [...init_board];
     shuffleArray(board, game.boardSeed);
     var cardIndex = searchCard(board, game.dices);
-    //console.log(game.dices);
     console.log(cardIndex);
     //For debugging --------------------
 
 
-    game.players.forEach(c => {
-        players[c.playerId].connection.send(JSON.stringify(payLoad));
+    game.players.forEach(p => {
+        players[p.playerId].connection.send(JSON.stringify(payLoad));
     });
 }

@@ -9,6 +9,7 @@ const join = require('./requests/join');
 const start = require('./requests/start');
 const roll = require('./requests/roll');
 const choose = require('./requests/choose');
+const leaving = require('./requests/leaving');
 
 app.use(cors());
 app.get("/", (req, res) => res.sendFile(__dirname+"/index.html"));
@@ -23,7 +24,7 @@ const wsServer = new websocketServer({
 wsServer.on("request", request => {
     const connection = request.accept(null, request.origin);
     connection.on("open", () => console.log("opened!"));
-    connection.on("closed", () => console.log("closed!"));
+    connection.on("close", () => console.log("closed!"));
     connection.on("message", message => {
         //We expect to get JSON!!
         const response = JSON.parse(message.utf8Data);
@@ -59,7 +60,12 @@ wsServer.on("request", request => {
         else if (response.method === "choose") {
             choose(response);
         }
+
+        //When the player leaves the page, delete it from the map
+        else if (response.method === "leaving") {
+            leaving(response.playerId);
+        }
     });
-    //Creates new playerID for connection
+    //Creates new playerID for connection, when visiting the page
     connect(connection);
 });

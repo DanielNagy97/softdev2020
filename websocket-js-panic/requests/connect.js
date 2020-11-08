@@ -1,4 +1,3 @@
-const { response } = require('express');
 const hashmaps = require('../hashmaps/hashmaps');
 const players = hashmaps.players;
 

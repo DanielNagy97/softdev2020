@@ -10,6 +10,7 @@
     <h1>Próba page</h1>
     <button id = "btnCreate">New game</button>
     <input type = "text" id = "inptGameId" style = "width:300px">
+    <input type = "text" id = "inptPlayerName" style = "width:200px">
     <button id = "btnJoin">Join game</button>
     <button id = "btnStart">Start game</button>
     <button id = "btnRoll">Roll dice</button>
@@ -24,31 +25,39 @@
         
         const btnCreate = document.getElementById("btnCreate");
         const inptGameId = document.getElementById("inptGameId");
+        const inptPlayerName = document.getElementById("inptPlayerName");
         const btnJoin = document.getElementById("btnJoin");
         const btnStart = document.getElementById("btnStart");
         const btnRoll = document.getElementById("btnRoll");
         const btnChoose = document.getElementById("btnChoose");
         const inptChoice = document.getElementById("inptChoice");
 
-        btnJoin.addEventListener("click", e =>{
-            if(gameId === null){
-                gameId = inptGameId.value;
-            }
-            const payLoad = {
-                "method": "join",
-                "playerId": playerId,
-                "gameId": gameId
-            }
-
-            ws.send(JSON.stringify(payLoad));
-        });
-
-
         btnCreate.addEventListener("click", e =>{
             const payLoad = {
                 "method": "create",
                 "playerId": playerId,
                 "noRounds": 5
+            }
+
+            ws.send(JSON.stringify(payLoad));
+        });
+
+        btnJoin.addEventListener("click", e =>{
+            if(gameId === null){
+                gameId = inptGameId.value;
+            }
+
+            var name = inptPlayerName.value;
+
+            if(name == ""){
+                name = "player" + Math.floor(Math.random() * 1001) + 1;
+            }
+
+            const payLoad = {
+                "method": "join",
+                "playerId": playerId,
+                "gameId": gameId,
+                "name": name
             }
 
             ws.send(JSON.stringify(payLoad));
@@ -127,7 +136,7 @@
 
             else if (response.method === "winner"){
                 const winner = response.winner;
-                console.log("The winner of the round:");
+                console.log("The winner of the round: (If its just a number, then there is no winner. The number shows the right card)");
                 console.log(winner)
             }
             else if (response.method === "result"){
@@ -136,6 +145,20 @@
                 console.log(gameResults);
             }
         };
+
+        //IMPORTANT!
+        //When closing the page,
+        //send back the playerId to the server for deleting it from its map
+        window.onbeforeunload = function() {
+            const payLoad = {
+                "method": "leaving",
+                "playerId": playerId
+            }
+            ws.send(JSON.stringify(payLoad));
+            ws.onclose = () => {};
+            ws.close();
+        };
+
     </script>
 </body>
 </html>
