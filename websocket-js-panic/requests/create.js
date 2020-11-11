@@ -9,7 +9,7 @@ module.exports = function create(response){
     const gameId = guid();
     const boardSeed =  Math.floor(Math.random() * 1001) + 1;
     
-    games[gameId] = {
+    games.set(gameId, {
         "id": gameId,
         "master": playerId,
         "boardSeed": boardSeed,
@@ -23,13 +23,13 @@ module.exports = function create(response){
         "round": 1,
         "noRounds": response.noRounds,
         "noTokens": 30
-    };
+    });
     
     const payLoad = {
         "method": "create",
         "gameId": gameId
     };
     
-    const connection = players[playerId].connection;
+    const connection = players.get(playerId).connection;
     connection.send(JSON.stringify(payLoad));
 }

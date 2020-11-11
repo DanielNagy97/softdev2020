@@ -52,7 +52,7 @@ module.exports = function findRoundWinner(game, players){
         "winner": winner ? winner : cardIndex
     };
     game.players.forEach(p => {
-        players[p.playerId].connection.send(JSON.stringify(payLoad));
+        players.get(p.playerId).connection.send(JSON.stringify(payLoad));
     });
     
 
@@ -63,7 +63,7 @@ module.exports = function findRoundWinner(game, players){
             "result": game.players.sort(compareTokens)
         };
         game.players.forEach(p => {
-            players[p.playerId].connection.send(JSON.stringify(payLoad));
+            players.get(p.playerId).connection.send(JSON.stringify(payLoad));
         });
 
         //Then deleting the game, because it is no longer needed!

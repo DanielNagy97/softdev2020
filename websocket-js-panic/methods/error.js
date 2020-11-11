@@ -8,6 +8,6 @@ module.exports = function error(playerId, errorMsg){
         "method": "error",
         "errorMsg": errorMsg
     };
-    const connection = players[playerId].connection;
+    const connection = players.get(playerId).connection;
     connection.send(JSON.stringify(payLoad));
 }

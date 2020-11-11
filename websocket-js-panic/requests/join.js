@@ -10,7 +10,7 @@ module.exports = function join(response){
     const gameId = response.gameId;
     const name = response.name;
 
-    const game = games[gameId];
+    const game = games.get(gameId);
 
     if(!game){
         error(playerId, "The game: " + gameId + " does not exists!" );
@@ -25,6 +25,7 @@ module.exports = function join(response){
         error(playerId, "You are already connected to this room!");
         return;
     }
+    players.get(playerId).gameId = gameId;
 
     game.players.push({
         "playerId": playerId,
@@ -40,6 +41,6 @@ module.exports = function join(response){
     //broadcast player infos to all players
     //(waiting room)
     game.players.forEach(p => {
-        players[p.playerId].connection.send(JSON.stringify(payLoad))
+        players.get(p.playerId).connection.send(JSON.stringify(payLoad))
     });
 }

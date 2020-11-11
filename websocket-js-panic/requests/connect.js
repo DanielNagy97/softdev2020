@@ -9,9 +9,9 @@ module.exports = function connect(connection){
 
     //update the hash
     //TODO: give players names (by registration or something...)
-    players[playerId] = {
+    players.set(playerId, {
         "connection": connection
-    };
+    });
 
     const payLoad = {
         "method": "connect",

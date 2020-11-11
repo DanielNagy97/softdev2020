@@ -15,7 +15,7 @@ module.exports = function roll(response){
     const playerId = response.playerId;
     const gameId = response.gameId;
 
-    const game = games[gameId];
+    const game = games.get(gameId);
 
     if(!game){
         error(playerId, "The game: " + gameId + " does not exists!" );
@@ -70,6 +70,6 @@ module.exports = function roll(response){
 */
 
     game.players.forEach(p => {
-        players[p.playerId].connection.send(JSON.stringify(payLoad));
+        players.get(p.playerId).connection.send(JSON.stringify(payLoad));
     });
 }

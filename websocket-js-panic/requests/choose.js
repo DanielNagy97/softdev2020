@@ -14,7 +14,7 @@ module.exports = function choose(response){
     const playerId = response.playerId;
     const gameId = response.gameId;
     const card = response.card;
-    const game = games[gameId];
+    const game = games.get(gameId);
 
     if(!game){
         error(playerId, "The game: " + gameId + " does not exists!" );
@@ -50,7 +50,7 @@ module.exports = function choose(response){
 
     //Broadcasting the player's choice for the other players
     game.players.forEach(p => {
-        players[p.playerId].connection.send(JSON.stringify(payLoad));
+        players.get(p.playerId).connection.send(JSON.stringify(payLoad));
     });
 
     //Check if all players have chosen card

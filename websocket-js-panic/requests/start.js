@@ -7,7 +7,7 @@ const error = require('../methods/error');
 module.exports = function start(response){
     const playerId = response.playerId;
     const gameId = response.gameId;
-    const game = games[gameId];
+    const game = games.get(gameId);
     if(!game){
         error(playerId, "The game: " + gameId + " does not exists!" );
         return;
@@ -23,6 +23,6 @@ module.exports = function start(response){
     };
 
     game.players.forEach(p => {
-        players[p.playerId].connection.send(JSON.stringify(payLoad));
+        players.get(p.playerId).connection.send(JSON.stringify(payLoad));
     });
 }
