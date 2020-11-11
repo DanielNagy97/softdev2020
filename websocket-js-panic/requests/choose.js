@@ -2,29 +2,41 @@ const hashmaps = require('../hashmaps/hashmaps');
 const games = hashmaps.games;
 const players = hashmaps.players;
 
+const error = require('../methods/error');
+
 const searchObjectInArray = require('../methods/searchObjectInArray');
 const findRoundWinner = require('../methods/findRoundWinner');
 
 //TODO: Set timeout for choosig phase in case of AFK players...
 module.exports = function choose(response){
+    //Using server time for the timestamp to avoid client cheating!
     const timestamp = new Date();
     const playerId = response.playerId;
     const gameId = response.gameId;
     const card = response.card;
     const game = games[gameId];
+
     if(!game){
-        //If the game does not exists do nothing...
-        //TODO: Send something back for error showing in frontend!
+        error(playerId, "The game: " + gameId + " does not exists!" );
         return;
     }
-
+    //Check if the player is in the room
+    if (!searchObjectInArray(playerId, "playerId", game.players)){
+        error(playerId, "You are not connected to the room: " + gameId + " !");
+        return;
+    }
     if (!game.dices.shape){
-        //You cannot choose the card if there is no dices in the round
-        //TODO: Send something back for error showing in frontend!
+        error(playerId, "You cannot choose the card, the dices are not rolled yet!");
         return;
     }
 
     const player = searchObjectInArray(playerId, "playerId", game.players);
+
+    //The players can only choose once per round!
+    if (player.choice){
+        error(playerId, "You have already chosen a card!");
+        return;
+    }
 
     player.choice = {
         "card" : card,
@@ -36,6 +48,7 @@ module.exports = function choose(response){
         "playerInfo": player
     };
 
+    //Broadcasting the player's choice for the other players
     game.players.forEach(p => {
         players[p.playerId].connection.send(JSON.stringify(payLoad));
     });

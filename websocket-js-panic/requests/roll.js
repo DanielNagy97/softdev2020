@@ -2,10 +2,14 @@ const hashmaps = require('../hashmaps/hashmaps');
 const games = hashmaps.games;
 const players = hashmaps.players;
 
+const error = require('../methods/error');
+
+/*
 //for debugging
 const searchCard = require('../methods/searchCard');
 const shuffleArray = require('../methods/shuffleArray');
 const init_board = require('../board/init_board.json');
+*/
 
 module.exports = function roll(response){
     const playerId = response.playerId;
@@ -14,20 +18,18 @@ module.exports = function roll(response){
     const game = games[gameId];
 
     if(!game){
-        //If the game does not exists do nothing...
-        //TODO: Send something back for error showing in frontend!
-        return;
-    }
-    if(game.players.length == 0){
-        //If the game does not have any players do nothing...
-        //TODO: Send something back for error showing in frontend!
+        error(playerId, "The game: " + gameId + " does not exists!" );
         return;
     }
     if(game.master !== playerId){
-        //invaild roll, the player is not the master
-        //TODO: Send something back for error showing in frontend!
+        error(playerId, "Invaild roll! You are not the master of the round!" );
         return;
     }
+    if(game.players.length == 0){
+        error(playerId, "You can not roll if there is nobody in the room!" );
+        return;
+    }
+
     game.dices.shape = {
                         "0": "Snail",
                         "1": "Gost"
@@ -57,6 +59,7 @@ module.exports = function roll(response){
         "dices": game.dices
     };
 
+/*
     //For debugging --------------------
     //For seeing the result before the choosing
     let board = [...init_board];
@@ -64,7 +67,7 @@ module.exports = function roll(response){
     var cardIndex = searchCard(board, game.dices);
     console.log(cardIndex);
     //For debugging --------------------
-
+*/
 
     game.players.forEach(p => {
         players[p.playerId].connection.send(JSON.stringify(payLoad));

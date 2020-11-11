@@ -2,6 +2,9 @@ const hashmaps = require('../hashmaps/hashmaps');
 const games = hashmaps.games;
 const players = hashmaps.players;
 
+const error = require('../methods/error');
+const searchObjectInArray = require('../methods/searchObjectInArray');
+
 module.exports = function join(response){
     const playerId = response.playerId;
     const gameId = response.gameId;
@@ -10,14 +13,16 @@ module.exports = function join(response){
     const game = games[gameId];
 
     if(!game){
-        //If the game does not exists do nothing...
-        //TODO: Send something back for error showing in frontend!
+        error(playerId, "The game: " + gameId + " does not exists!" );
         return;
     }
-
     if (game.players.length >= 10){
-        //TODO: send back something
-        //max players reached
+        error(playerId, "The room: " + gameId + " is full!" );
+        return;
+    }
+    //Check if the player is already in the room
+    if (searchObjectInArray(playerId, "playerId", game.players)){
+        error(playerId, "You are already connected to this room!");
         return;
     }
 

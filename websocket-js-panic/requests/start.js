@@ -2,12 +2,18 @@ const hashmaps = require('../hashmaps/hashmaps');
 const games = hashmaps.games;
 const players = hashmaps.players;
 
+const error = require('../methods/error');
+
 module.exports = function start(response){
+    const playerId = response.playerId;
     const gameId = response.gameId;
     const game = games[gameId];
     if(!game){
-        //If the game does not exists do nothing...
-        //TODO: Send something back for error showing in frontend!
+        error(playerId, "The game: " + gameId + " does not exists!" );
+        return;
+    }
+    if(game.players.length == 0){
+        error(playerId, "Nobody has connected to this games!" );
         return;
     }
 

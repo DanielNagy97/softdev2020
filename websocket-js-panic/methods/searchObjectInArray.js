@@ -6,4 +6,5 @@ module.exports = function searchObjectInArray(value, key, myArray){
             return myArray[i];
         }
     }
+    return null;
 }

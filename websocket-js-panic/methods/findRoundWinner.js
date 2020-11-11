@@ -12,13 +12,19 @@ module.exports = function findRoundWinner(game, players){
     let board = [...init_board];
     shuffleArray(board, game.boardSeed);
     var cardIndex = searchCard(board, game.dices);
-    console.log(cardIndex);
+    //console.log(cardIndex);
 
     var playersWhoGotItRight = [];
 
     game.players.forEach(c => {
         if(cardIndex == c.choice.card){
             playersWhoGotItRight.push(c);
+        }
+        else{
+            //For the wrong choice, the players must pay one token!
+            if(c.tokens != 0){
+                c.tokens--;
+            }
         }
     });
 
@@ -45,6 +51,7 @@ module.exports = function findRoundWinner(game, players){
     game.players.forEach(p => {
         players[p.playerId].connection.send(JSON.stringify(payLoad));
     });
+    
 
     //Broadcasting the final result of the game as a list
     if (game.round === game.noRounds){

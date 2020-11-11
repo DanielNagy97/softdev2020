@@ -66,6 +66,7 @@
         btnStart.addEventListener("click", e =>{
             const payLoad = {
                 "method": "start",
+                "playerId": playerId,
                 "gameId": gameId
             }
 
@@ -142,6 +143,11 @@
                 const gameResults = response.result;
                 console.log("The result of the game (players by descending token orders):");
                 console.log(gameResults);
+            }
+            else if (response.method === "error"){
+                const errorMsg = response.errorMsg;
+                console.log("----Error----");
+                console.log(errorMsg);
             }
         };
 
