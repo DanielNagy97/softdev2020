@@ -3,7 +3,14 @@ const players = hashmaps.players;
 const games = hashmaps.games;
 
 module.exports = function leaving(playerId){
-    //TODO: 
+    //TODO: Do something with the leavings
+    //NOTE: Deleting the players from the map might broke the game...
+
+    //Put the tokens back to the game tokens
+    //If the disconnected player was a master and havent rolled yet -> make somebody a master
+    //If the disconnected player did not picked a card -> choose() randomly with response values...
+    //If the disconnected player was about to win the game -> check if player exists, if not choose new master randomly
+    //broadcast start() for all players, to see the change
     /*
     const gameId = players.get(playerId).gameId;
 

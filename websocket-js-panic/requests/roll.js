@@ -29,6 +29,10 @@ module.exports = function roll(response){
         error(playerId, "You can not roll if there is nobody in the room!" );
         return;
     }
+    if (game.dices.shape){
+        error(playerId, "You can only roll once!");
+        return;
+    }
 
     game.dices.shape = {
                         "0": "Snail",
