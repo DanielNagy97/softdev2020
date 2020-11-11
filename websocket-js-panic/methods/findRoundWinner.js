@@ -24,6 +24,7 @@ module.exports = function findRoundWinner(game, players){
             //For the wrong choice, the players must pay one token!
             if(c.tokens != 0){
                 c.tokens--;
+                game.noTokens++;
             }
         }
     });
@@ -31,6 +32,7 @@ module.exports = function findRoundWinner(game, players){
     if(playersWhoGotItRight.length == 1){
         winner = playersWhoGotItRight[0];
         winner.tokens++;
+        game.noTokens--;
     }
     else if(playersWhoGotItRight.length > 1){
         //find minimum timestamp
@@ -41,6 +43,7 @@ module.exports = function findRoundWinner(game, players){
             }
         });
         winner.tokens++;
+        game.noTokens--;
     }
 
     //If there is no winner, send back the cardIndex
@@ -54,7 +57,7 @@ module.exports = function findRoundWinner(game, players){
     
 
     //Broadcasting the final result of the game as a list
-    if (game.round === game.noRounds){
+    if (game.round === game.noRounds | game.noTokens == 0){
         const payLoad = {
             "method": "result",
             "result": game.players.sort(compareTokens)
